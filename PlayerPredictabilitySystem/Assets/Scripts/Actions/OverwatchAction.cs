@@ -8,6 +8,8 @@ public class OverwatchAction : BaseAction
 {
     public event EventHandler<OnOverwatchEventArgs> OnShoot;
     public event EventHandler<OnOverwatchEventArgs> OnEnterOverwatch;
+    
+    private bool hasPreformed;
 
     public class OnOverwatchEventArgs : EventArgs
     {
@@ -67,15 +69,6 @@ public class OverwatchAction : BaseAction
                     Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
                     float rotateSpeed = 10f;
                     transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * rotateSpeed);
-
-                    if (targetUnit.TryGetComponent(out UnitAnimator animator))
-                    {
-                        animator.PauseAnimation();
-                    }
-                    if (targetUnit.TryGetComponent(out MoveAction moveAction))
-                    {
-                        moveAction.SetIsPaused(true);
-                    }
                     yield return new WaitForSeconds(stateTimer);
                     state = State.Shooting;
                     float shootingStateTime = 0.1f;
@@ -97,15 +90,6 @@ public class OverwatchAction : BaseAction
                     break;
                 case State.Finish:
                     unit.SetPreviousAction(this);
-                    if (targetUnit.TryGetComponent(out UnitAnimator _animator))
-                    {
-                        _animator.ResumeAnimation();
-                    }
-                    if (targetUnit.TryGetComponent(out MoveAction _moveAction))
-                    {
-                        _moveAction.TakeAction(targetUnit.GetMovingGridPosition(), onActionComplete);
-                        _moveAction.SetIsPaused(false);
-                    }
                     passiveActive = false;
                     break;
             }
@@ -233,8 +217,9 @@ public class OverwatchAction : BaseAction
 
     public override AIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        if (PlayerActionProbability.Instance.GetHighestProbabilityAction().GetActionName() == "Melee")
+        if (PlayerActionProbability.Instance.GetHighestProbabilityAction().GetActionName() == "Melee" && !hasPreformed)
         {
+            hasPreformed = true;
             return new AIAction
             {
                 gridPosition = gridPosition,

@@ -14,10 +14,10 @@ public class ActionProbabilityUI : MonoBehaviour
     public void SetBaseAction(ActionProbabilityBase actionProbabilityBase, float actionMax)
     {
         this.actionProbabilityBase = actionProbabilityBase;
-        this.actionNameText.text = actionProbabilityBase.GetActionName();
-        this.initialProbabilityBase = actionProbabilityBase.GetActionProbability();
+        actionNameText.text = actionProbabilityBase.GetActionName();
+        initialProbabilityBase = actionProbabilityBase.GetActionProbability();
         this.actionMax = actionMax;
-        this.actionProbabilityText.text = Mathf.Round((initialProbabilityBase / actionMax) * 100).ToString() + "%";
+        actionProbabilityText.text = Mathf.Round((initialProbabilityBase / actionMax) * 100).ToString() + "%";
 
         probabilityBarImage.fillAmount = actionProbabilityBase.GetActionProbability() / actionMax;
     }
@@ -25,14 +25,10 @@ public class ActionProbabilityUI : MonoBehaviour
     public void UpdateSelectedVisual(float actionIncrease, float actionMax)
     {
         initialProbabilityBase = actionIncrease;
-        this.actionProbabilityText.text = Mathf.Round((initialProbabilityBase / actionMax) * 100).ToString() + "%";
+        actionProbabilityText.text = Mathf.Round((initialProbabilityBase / actionMax) * 100).ToString() + "%";
         probabilityBarImage.fillAmount = initialProbabilityBase / actionMax;
     }
     
-    public BaseAction GetBaseAction()
-    {
-        return baseAction;
-    }
 
     public ActionProbabilityBase GetActionProbabilityBase()
     {

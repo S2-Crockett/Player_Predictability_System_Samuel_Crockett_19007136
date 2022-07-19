@@ -65,7 +65,7 @@ public class MeleeActionProbability : ActionProbabilityBase
             GridPosition startGridPosition = LevelGrid.Instance.GetGridPosition(posList[0]);
             GridPosition endGridPosition = LevelGrid.Instance.GetGridPosition(posList[posList.Count - 1]);
             pathLength = Pathfinding.Instance.GetPathLength(startGridPosition, endGridPosition);
-            actionProbability += pathLength/25;
+            actionProbability += pathLength/65;
         }
         else
         {

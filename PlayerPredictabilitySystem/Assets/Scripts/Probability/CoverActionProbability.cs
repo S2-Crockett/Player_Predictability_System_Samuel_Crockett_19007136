@@ -47,7 +47,7 @@ public class CoverActionProbability : ActionProbabilityBase
         if (unit.GetCoverType() != CoverType.None)
         {
             pathLength = (float)Pathfinding.Instance.GetPathLength(startGridPosition, endGridPosition);
-            actionProbability += (pathLength * (float)unit.GetCoverType() / 4)/30;
+            actionProbability += (pathLength * (float)unit.GetCoverType() / 4)/45;
         }
     }
 

@@ -94,7 +94,7 @@ public class FlankingActionProbability : ActionProbabilityBase
                         GridPosition startGridPosition = LevelGrid.Instance.GetGridPosition(posList[0]);
                         GridPosition endGridPosition = LevelGrid.Instance.GetGridPosition(posList[posList.Count - 1]);
                         pathLength = (float)Pathfinding.Instance.GetPathLength(startGridPosition, endGridPosition);
-                        actionProbability += pathLength/30;
+                        actionProbability += pathLength/60;
                         hasFlanked = true;
                     }
                     break;

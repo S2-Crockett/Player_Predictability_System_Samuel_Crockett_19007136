@@ -216,7 +216,7 @@ public class MoveAction : BaseAction
             return new AIAction
             {
                 gridPosition = gridPosition,
-                actionPriority = targetCountAtGridPosition + 1 * 100
+                actionPriority = 100
             };
         }
 
@@ -232,7 +232,7 @@ public class MoveAction : BaseAction
         return new AIAction
         {
             gridPosition = gridPosition,
-            actionPriority = 109
+            actionPriority = 8
         };
     }
     
