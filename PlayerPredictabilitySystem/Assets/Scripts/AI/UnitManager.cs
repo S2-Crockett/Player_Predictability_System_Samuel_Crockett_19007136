@@ -42,6 +42,7 @@ public class UnitManager : MonoBehaviour
         unitList.Add(unit);
 
         unit.OnUnitMoved += Unit_OnAnyUnitMoved;
+        AddUnitToCombatUnitList(unit);
 
         if (unit.IsEnemy())
         {
@@ -59,6 +60,11 @@ public class UnitManager : MonoBehaviour
 
         Unit unit = sender as Unit;
 
+        AddUnitToCombatUnitList(unit);
+    }
+
+    private void AddUnitToCombatUnitList(Unit unit)
+    {
         if (unit.IsEnemy())
         {
             foreach (var friendlyUnit in GetPlayerUnitList())
@@ -78,6 +84,7 @@ public class UnitManager : MonoBehaviour
             }
         }
     }
+    
     private void Unit_OnAnyUnitDead(object sender, EventArgs e)
     {
         Unit unit = sender as Unit;
